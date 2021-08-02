@@ -377,36 +377,6 @@ export type MessageAdditions =
 
 export type Awaited<T> = T | Promise<T>;
 
-export interface ExtendedTextChannel extends discord.TextChannel {
-  send(content: APIMessageContentResolvable | (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
-  send(options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
-  send(options: MessageOptions | discord.APIMessage): Promise<Message | Message[]>;
-  send(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
-  send(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
-  send(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
-  send(content: StringResolvable, options: MessageButton | MessageActionRow | MessageMenu): Promise<Message | Message[]>;
-}
-
-export interface ExtendedDMChannel extends discord.DMChannel {
-  send(content: APIMessageContentResolvable | (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
-  send(options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
-  send(options: MessageOptions | discord.APIMessage): Promise<Message | Message[]>;
-  send(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
-  send(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
-  send(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
-  send(content: StringResolvable, options: MessageButton | MessageActionRow | MessageMenu): Promise<Message | Message[]>;
-}
-
-export interface ExtendedNewsChannel extends discord.NewsChannel {
-  send(content: APIMessageContentResolvable | (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
-  send(options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
-  send(options: MessageOptions | discord.APIMessage): Promise<Message | Message[]>;
-  send(content: StringResolvable, options: (MessageOptions & { split?: false }) | MessageAdditions): Promise<Message>;
-  send(content: StringResolvable, options: MessageOptions & { split: true | SplitOptions }): Promise<Message[]>;
-  send(content: StringResolvable, options: MessageOptions): Promise<Message | Message[]>;
-  send(content: StringResolvable, options: MessageButton | MessageActionRow | MessageMenu): Promise<Message | Message[]>;
-}
-
 declare module 'discord-buttons' {
   export default function (client: discord.Client): void;
   export function multipleImport(...clients: discord.Client[]): void;
