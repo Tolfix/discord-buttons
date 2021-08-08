@@ -7,9 +7,6 @@ if (version.includes('(')) version = version.join('').split('(').pop().split('')
 version = parseInt(version[0] + version[1]);
 
 module.exports = (client) => {
-  // if (version != 12) {
-  //   throw new Error('Your discord.js version must be 12.x');
-  // }
 
   if (!(client instanceof Client)) throw new Error('INVALID_CLIENT_PROVIDED: Your discord.js Client is invalid or has not been provided.');
 
@@ -40,9 +37,6 @@ module.exports = (client) => {
 };
 
 module.exports.multipleImport = (...clients) => {
-  // if (version != 12) {
-  //   throw new Error('Your discord.js version must be 12.x');
-  // }
 
   if (!Message.createButtonCollector || typeof Message.createButtonCollector !== 'function') {
     require('./v12/Classes/TextChannel');
