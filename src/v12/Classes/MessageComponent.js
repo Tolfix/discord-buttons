@@ -39,7 +39,14 @@ class MessageComponent {
 
     this.message = new Message(client, data.message, this.channel);
 
-    this.reply = new InteractionReply(client, this, new WebhookClient(data.application_id, data.token, client.options));
+    var version = require('discord.js').version.split('');
+    if (version.includes('(')) version = version.join('').split('(').pop().split('');
+    version = parseInt(version[0] + version[1]);
+
+    if(version == 13)
+      this.reply = new InteractionReply(client, this, new WebhookClient({url: `https://discord.com/api/webhooks/${data.application_id}/${data.token}`} /*data.application_id, data.token,*/, client.options));
+    if(version == 12)
+      this.reply = new InteractionReply(client, this, new WebhookClient(data.application_id, data.token, client.options));
 
     this.message.update = async function (content, options) {
       if (options === null && options !== undefined) options = { components: null };
@@ -57,6 +64,14 @@ class MessageComponent {
       });
     };
   }
+
+  get component() {
+    return (
+      this.message.components
+        .flatMap(row => row.components)
+        .find(component => (component.id || component.custom_id) === this.id) || null
+    );
+  } 
 }
 
 module.exports = MessageComponent;

@@ -1,12 +1,9 @@
-const NewsChannel = require('discord.js').Structures.get('NewsChannel');
-const Structures = require('discord.js').Structures;
+const {NewsChannel,User,GuildMember} = require('discord.js')
 const { APIMessage } = require('./APIMessage');
 
-class ExtendedNewsChannel extends NewsChannel {
-  async send(content, options) {
-    const User = Structures.get('User');
-    const GuildMember = Structures.get('GuildMember');
-
+Object.defineProperty(NewsChannel.prototype, "send", {
+  value: async function(content, options)
+  {
     if (this instanceof User || this instanceof GuildMember) {
       return this.createDM().then((dm) => dm.send(content, options));
     }
@@ -26,6 +23,4 @@ class ExtendedNewsChannel extends NewsChannel {
     const { data, files } = await apiMessage.resolveFiles();
     return this.client.api.channels[this.id].messages.post({ data, files }).then((d) => this.client.actions.MessageCreate.handle(d).message);
   }
-}
-
-module.exports = ExtendedNewsChannel;
+});

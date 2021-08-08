@@ -1,10 +1,23 @@
-const { APIMessage: dAPIMessage, MessageEmbed } = require('discord.js');
+const { MessagePayload: v13Message, APIMessage: v12Message, MessageEmbed } = require('discord.js');
 const { MessageComponentTypes } = require('../Constants.js');
+const ExtendedMessage = require('./Message.js');
 const MessageActionRow = require('./MessageActionRow');
 const MessageButton = require('./MessageButton');
 const MessageMenu = require('./MessageMenu');
 
-class APIMessage extends dAPIMessage {
+function ExtendRightVersion()
+{
+  var version = require('discord.js').version.split('');
+  if (version.includes('(')) version = version.join('').split('(').pop().split('');
+  version = parseInt(version[0] + version[1]);
+  if(version == 12)
+    return v12Message;
+
+  if(version == 13)
+    v13Message
+}
+
+class APIMessage extends ExtendRightVersion() {
   resolveData() {
     if (this.data) {
       return this;

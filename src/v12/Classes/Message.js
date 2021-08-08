@@ -1,4 +1,4 @@
-const Message = require('discord.js').Structures.get('Message');
+const {Message} = require('discord.js')
 const ButtonCollector = require('./ButtonCollector');
 const MenuCollector = require('./MenuCollector');
 const APIMessage = require('./APIMessage').APIMessage;
@@ -68,5 +68,47 @@ class ExtendedMessage extends Message {
     });
   }
 }
+
+// Object.defineProperty(Message.prototype, "_patch", {
+//   value: function (data) {
+//     return ExtendedMessage.prototype._patch(data);
+//   }
+// });
+
+Object.defineProperty(Message.prototype, "createButtonCollector", {
+  value: function (filter, options = {}) {
+    return ExtendedMessage.prototype.createButtonCollector(filter, options);
+  }
+});
+
+Object.defineProperty(Message.prototype, "awaitButtons", {
+  value: function (filter, options = {}) {
+    return ExtendedMessage.prototype.awaitButtons(filter, options);
+  }
+});
+
+Object.defineProperty(Message.prototype, "createMenuCollector", {
+  value: function (filter, options = {}) {
+    return ExtendedMessage.prototype.createMenuCollector(filter, options);
+  }
+});
+
+Object.defineProperty(Message.prototype, "awaitMenus", {
+  value: function (filter, options = {}) {
+    return ExtendedMessage.prototype.awaitMenus(filter, options);
+  }
+});
+
+Object.defineProperty(Message.prototype, "reply", {
+  value: function (content, options) {
+    return ExtendedMessage.prototype.reply(content, options);
+  }
+});
+
+Object.defineProperty(Message.prototype, "edit", {
+  value: function (content, options) {
+    return ExtendedMessage.prototype.edit(content, options);
+  }
+});
 
 module.exports = ExtendedMessage;
