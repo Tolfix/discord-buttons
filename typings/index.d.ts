@@ -20,9 +20,10 @@ import discord, {
 } from 'discord.js';
 
 declare module 'discord.js' {
+
   export interface ClientEvents {
-    clickButton: [MessageComponent];
-    clickMenu: [MessageComponent];
+    clickButton: [Disbut_MessageComponent];
+    clickMenu: [Disbut_MessageComponent];
   }
 
   export interface MessageOptions {
@@ -57,7 +58,7 @@ declare module 'discord.js' {
     components: MessageActionRow[];
     createButtonCollector(filter: CollectorFilter, options?: AwaitMessageButtonOptions): ButtonCollector;
     createMenuCollector(filter: CollectorFilter, options?: AwaitMessageMenuOptions): MenuCollector;
-    awaitButtons(filter: CollectorFilter, options?: AwaitMessageButtonOptions): Promise<Collection<Snowflake, MessageComponent>>;
+    awaitButtons(filter: CollectorFilter, options?: AwaitMessageButtonOptions): Promise<Collection<Snowflake, Disbut_MessageComponent>>;
     edit(
         content: APIMessageContentResolvable | MessageEditOptions | MessageEmbed | APIMessage,
       ): Promise<Message>;
@@ -178,9 +179,9 @@ export interface MessageMenuOptionsData {
 }
 
 export class InteractionReply {
-  constructor(client: discord.Client, component: MessageComponent, webhook: WebhookClient);
+  constructor(client: discord.Client, component: Disbut_MessageComponent, webhook: WebhookClient);
   client: discord.Client;
-  component: MessageComponent;
+  component: Disbut_MessageComponent;
   webhook: WebhookClient;
   has: boolean;
   isEphemeral: boolean;
@@ -207,7 +208,7 @@ export class sendAPICallback extends discord.APIMessage {
   public flags: number;
 }
 
-export class MessageComponent {
+export class Disbut_MessageComponent {
   constructor(client: discord.Client, data: any, menu: boolean);
   client: discord.Client;
   id: Snowflake;
@@ -339,9 +340,9 @@ export class WebhookClient extends discord.WebhookClient {
 export interface Message extends discord.Message {
   components: MessageActionRow[];
   createButtonCollector(filter: CollectorFilter, options?: AwaitMessageButtonOptions): ButtonCollector;
-  awaitButtons(filter: CollectorFilter, options?: AwaitMessageButtonOptions): Promise<Collection<Snowflake, MessageComponent>>;
+  awaitButtons(filter: CollectorFilter, options?: AwaitMessageButtonOptions): Promise<Collection<Snowflake, Disbut_MessageComponent>>;
   createMenuCollector(filter: CollectorFilter, options?: AwaitMessageMenuOptions): MenuCollector;
-  awaitMenus(filter: CollectorFilter, options?: AwaitMessageMenuOptions): Promise<Collection<Snowflake, MessageComponent>>;
+  awaitMenus(filter: CollectorFilter, options?: AwaitMessageMenuOptions): Promise<Collection<Snowflake, Disbut_MessageComponent>>;
   edit(
     content: APIMessageContentResolvable | MessageEditOptions | MessageEmbed | MessageButton | MessageMenu | MessageActionRow | APIMessage,
   ): Promise<Message>;
@@ -358,7 +359,7 @@ export interface AwaitMessageButtonOptions extends MessageButtonCollectorOptions
   errors?: string[];
 }
 
-export class ButtonCollector extends Collector<Snowflake, MessageComponent> {
+export class ButtonCollector extends Collector<Snowflake, Disbut_MessageComponent> {
   constructor(message: Message, filter: CollectorFilter, options?: MessageButtonCollectorOptions);
   message: Message;
   users: Collection<Snowflake, User>;
@@ -371,12 +372,12 @@ export class ButtonCollector extends Collector<Snowflake, MessageComponent> {
 
   collect(button: MessageButton): Snowflake;
   dispose(button: MessageButton): Snowflake;
-  on(event: 'collect' | 'dispose', listener: (interaction: MessageComponent) => Awaited<void>): this;
-  on(event: 'end', listener: (collected: Collection<Snowflake, MessageComponent>, reason: string) => Awaited<void>): this;
+  on(event: 'collect' | 'dispose', listener: (interaction: Disbut_MessageComponent) => Awaited<void>): this;
+  on(event: 'end', listener: (collected: Collection<Snowflake, Disbut_MessageComponent>, reason: string) => Awaited<void>): this;
   on(event: string, listener: (...data: any[]) => Awaited<void>): this;
 
-  once(event: 'collect' | 'dispose', listener: (interaction: MessageComponent) => Awaited<void>): this;
-  once(event: 'end', listener: (collected: Collection<Snowflake, MessageComponent>, reason: string) => Awaited<void>): this;
+  once(event: 'collect' | 'dispose', listener: (interaction: Disbut_MessageComponent) => Awaited<void>): this;
+  once(event: 'end', listener: (collected: Collection<Snowflake, Disbut_MessageComponent>, reason: string) => Awaited<void>): this;
   once(event: string, listener: (...data: any[]) => Awaited<void>): this;
 }
 
@@ -390,7 +391,7 @@ export interface AwaitMessageMenuOptions extends MessageMenuCollectorOptions {
   errors?: string[];
 }
 
-export class MenuCollector extends Collector<Snowflake, MessageComponent> {
+export class MenuCollector extends Collector<Snowflake, Disbut_MessageComponent> {
   constructor(data: any, filter: CollectorFilter, options?: MessageMenuCollectorOptions);
   public message: Message;
   public users: Collection<Snowflake, User>;
@@ -404,12 +405,12 @@ export class MenuCollector extends Collector<Snowflake, MessageComponent> {
   public empty(): void;
   public endReason(): string | null;
 
-  on(event: 'collect' | 'dispose', listener: (interaction: MessageComponent) => Awaited<void>): this;
-  on(event: 'end', listener: (collected: Collection<Snowflake, MessageComponent>, reason: string) => Awaited<void>): this;
+  on(event: 'collect' | 'dispose', listener: (interaction: Disbut_MessageComponent) => Awaited<void>): this;
+  on(event: 'end', listener: (collected: Collection<Snowflake, Disbut_MessageComponent>, reason: string) => Awaited<void>): this;
   on(event: string, listener: (...data: any[]) => Awaited<void>): this;
 
-  once(event: 'collect' | 'dispose', listener: (interaction: MessageComponent) => Awaited<void>): this;
-  once(event: 'end', listener: (collected: Collection<Snowflake, MessageComponent>, reason: string) => Awaited<void>): this;
+  once(event: 'collect' | 'dispose', listener: (interaction: Disbut_MessageComponent) => Awaited<void>): this;
+  once(event: 'end', listener: (collected: Collection<Snowflake, Disbut_MessageComponent>, reason: string) => Awaited<void>): this;
   once(event: string, listener: (...data: any[]) => Awaited<void>): this;
 }
 
