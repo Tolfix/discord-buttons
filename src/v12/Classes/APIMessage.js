@@ -14,7 +14,7 @@ function ExtendRightVersion()
     return v12Message;
 
   if(version == 13)
-    v13Message
+    return v13Message
 }
 
 class APIMessage extends ExtendRightVersion() {
